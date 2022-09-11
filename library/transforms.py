@@ -10,22 +10,22 @@ def convert_quaternion_to_matrix(q):
     """
 
     w, x, y, z = q
-    Nq = w*w + x*x + y*y + z*z
+    Nq = w * w + x * x + y * y + z * z
     if Nq < K_FLOAT_EPS:
         return numpy.eye(3)
     
-    s = 2.0/Nq
-    X = x*s
-    Y = y*s
-    Z = z*s
-    wX = w*X; wY = w*Y; wZ = w*Z
-    xX = x*X; xY = x*Y; xZ = x*Z
-    yY = y*Y; yZ = y*Z; zZ = z*Z
+    s = 2.0 / Nq
+    X = x * s
+    Y = y * s
+    Z = z * s
+    wX = w * X; wY = w * Y; wZ = w * Z
+    xX = x * X; xY = x * Y; xZ = x * Z
+    yY = y * Y; yZ = y * Z; zZ = z * Z
     
     return numpy.array(
-           [[ 1.0-(yY+zZ), xY-wZ, xZ+wY ],
-            [ xY+wZ, 1.0-(xX+zZ), yZ-wX ],
-            [ xZ-wY, yZ+wX, 1.0-(xX+yY) ]])
+           [[ 1.0 - (yY + zZ), xY - wZ, xZ + wY ],
+            [ xY + wZ, 1.0 - (xX + zZ), yZ - wX ],
+            [ xZ - wY, yZ + wX, 1.0 - (xX + yY) ]])
 
 
 def convert_matrix_to_quaternion(M):
@@ -49,7 +49,8 @@ def convert_matrix_to_quaternion(M):
     
     return q
 
-def convert_matrix_to_euler(mat, axes='sxyz'):
+
+def convert_matrix_to_euler(mat, axes = 'sxyz'):
     """
     Return Euler angles from rotation matrix for specified axis sequence.
     """
@@ -61,13 +62,13 @@ def convert_matrix_to_euler(mat, axes='sxyz'):
         firstaxis, parity, repetition, frame = axes
 
     i = firstaxis
-    j = K_NEXT_AXIS[i+parity]
-    k = K_NEXT_AXIS[i-parity+1]
+    j = K_NEXT_AXIS[i + parity]
+    k = K_NEXT_AXIS[i - parity + 1]
 
-    M = numpy.array(mat, dtype=numpy.float64, copy=False)[:3, :3]
+    M = numpy.array(mat, dtype = numpy.float64, copy = False)[:3, :3]
     
     if repetition:
-        sy = math.sqrt(M[i, j]*M[i, j] + M[i, k]*M[i, k])
+        sy = math.sqrt(M[i, j] * M[i, j] + M[i, k] * M[i, k])
         if sy > K_EPS4:
             ax = math.atan2( M[i, j],  M[i, k])
             ay = math.atan2( sy,       M[i, i])
@@ -77,7 +78,7 @@ def convert_matrix_to_euler(mat, axes='sxyz'):
             ay = math.atan2( sy,       M[i, i])
             az = 0.0
     else:
-        cy = math.sqrt(M[i, i]*M[i, i] + M[j, i]*M[j, i])
+        cy = math.sqrt(M[i, i] * M[i, i] + M[j, i] * M[j, i])
         if cy > K_EPS4:
             ax = math.atan2( M[k, j],  M[k, k])
             ay = math.atan2(-M[k, i],  cy)
@@ -94,7 +95,8 @@ def convert_matrix_to_euler(mat, axes='sxyz'):
     
     return ax, ay, az
 
-def convert_euler_to_quaternion(ai, aj, ak, axes='sxyz'):
+
+def convert_euler_to_quaternion(ai, aj, ak, axes = 'sxyz'):
     """
     Return `quaternion` from Euler angles and axis sequence `axes`
     """
@@ -106,8 +108,8 @@ def convert_euler_to_quaternion(ai, aj, ak, axes='sxyz'):
         firstaxis, parity, repetition, frame = axes
 
     i = firstaxis + 1
-    j = K_NEXT_AXIS[i+parity-1] + 1
-    k = K_NEXT_AXIS[i-parity] + 1
+    j = K_NEXT_AXIS[i + parity - 1] + 1
+    k = K_NEXT_AXIS[i - parity] + 1
 
     if frame:
         ai, ak = ak, ai
@@ -123,28 +125,29 @@ def convert_euler_to_quaternion(ai, aj, ak, axes='sxyz'):
     sj = math.sin(aj)
     ck = math.cos(ak)
     sk = math.sin(ak)
-    cc = ci*ck
-    cs = ci*sk
-    sc = si*ck
-    ss = si*sk
+    cc = ci * ck
+    cs = ci * sk
+    sc = si * ck
+    ss = si * sk
 
     q = numpy.empty((4, ))
     if repetition:
-        q[0] = cj*(cc - ss)
-        q[i] = cj*(cs + sc)
-        q[j] = sj*(cc + ss)
-        q[k] = sj*(cs - sc)
+        q[0] = cj * (cc - ss)
+        q[i] = cj * (cs + sc)
+        q[j] = sj * (cc + ss)
+        q[k] = sj * (cs - sc)
     else:
-        q[0] = cj*cc + sj*ss
-        q[i] = cj*sc - sj*cs
-        q[j] = cj*ss + sj*cc
-        q[k] = cj*cs - sj*sc
+        q[0] = cj * cc + sj * ss
+        q[i] = cj * sc - sj * cs
+        q[j] = cj * ss + sj * cc
+        q[k] = cj * cs - sj * sc
     if parity:
         q[j] *= -1.0
     
     return q
 
-def convert_quaternion_to_euler(quaternion, axes='sxyz'):
+
+def convert_quaternion_to_euler(quaternion, axes = 'sxyz'):
     """
     Euler angles from `quaternion` for specified axis sequence `axes`
     """

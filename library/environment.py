@@ -1,8 +1,8 @@
 import rospy
 import sys, os, warnings
 
-warnings.filterwarnings('ignore', message='numpy.dtype size changed')
-warnings.filterwarnings('ignore', message='numpy.ufunc size changed')
+warnings.filterwarnings('ignore', message = 'numpy.dtype size changed')
+warnings.filterwarnings('ignore', message = 'numpy.ufunc size changed')
 
 from geometry_msgs.msg import Twist
 from gazebo_msgs.msg import ModelStates
@@ -37,7 +37,7 @@ logger = logging.getLogger('environ')
 class GazeboEnvironment(object):
 
     def __init__(self) -> None:
-        rospy.init_node(K_ENVIRONMENT_NAME, anonymous=False)
+        rospy.init_node(K_ENVIRONMENT_NAME, anonymous = False)
 
         self.default_robot_state = ModelState()
         self.default_robot_state.model_name = 'mobile_base' 
@@ -180,7 +180,7 @@ class GazeboEnvironment(object):
             gauss_mask = numpy.random.normal(0.0, 0.5, dsize)
             gauss_mask = gauss_mask.reshape(dsize[1], dsize[0])
             
-            image_data = numpy.array(image_data, dtype=numpy.float32)
+            image_data = numpy.array(image_data, dtype = numpy.float32)
             image_data = image_data + gauss_mask
             image_data[image_data < 0.00001] = 0.0
             image_data *= (10.0 / 255.0)
@@ -260,8 +260,8 @@ class GazeboEnvironment(object):
             object_state = self.convert_states_to_state(self.simulation_params.default_states, object_name)
         self.ros_publisher.update_state.publish(object_state)
     
-    def reset_environment(self) -> None:
-        self.initialize_object_pose()
+    def reset_environment(self, use_semi_random_position = True) -> None:
+        self.initialize_object_pose(use_semi_random_position = use_semi_random_position)
         
         for i in range(0, len(self.simulation_params.object_label), 1): 
             # INFO: support for dynamic obstacles and target destinations 

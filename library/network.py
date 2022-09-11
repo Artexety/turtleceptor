@@ -83,14 +83,14 @@ class QNetwork(object):
         h_fc_adv = tf.nn.relu(tf.matmul(h_conv3_flat, w_adv) + b_adv)		
         advantage = tf.matmul(h_fc_adv, w_adv_out) + b_adv_out
 
-        adv_average = tf.expand_dims(tf.reduce_mean(advantage, axis=1), axis=1)
+        adv_average = tf.expand_dims(tf.reduce_mean(advantage, axis = 1), axis = 1)
         adv_identifiable = tf.subtract(advantage, adv_average)
         self.readout = tf.add(value, adv_identifiable)
 
         self.a = tf.placeholder("float", [None, K_NUM_VALID_ACTIONS])
         self.y = tf.placeholder("float", [None])
         
-        self.readout_action = tf.reduce_sum(tf.multiply(self.readout, self.a), axis=1)
+        self.readout_action = tf.reduce_sum(tf.multiply(self.readout, self.a), axis = 1)
         self.error = tf.square(self.y - self.readout_action)
         self.cost = tf.reduce_mean(self.error)
         self.train_step = tf.train.AdamOptimizer(1e-4).minimize(self.cost)

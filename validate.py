@@ -2,8 +2,8 @@ from __future__ import print_function
 from library.environment import GazeboEnvironment
 import sys, os, warnings
 
-warnings.filterwarnings('ignore', message='numpy.dtype size changed')
-warnings.filterwarnings('ignore', message='numpy.ufunc size changed')
+warnings.filterwarnings('ignore', message = 'numpy.dtype size changed')
+warnings.filterwarnings('ignore', message = 'numpy.ufunc size changed')
 
 # Remove ros python installation from python path to prevent name 
 # mismatches (ros-distro: kinetic, ubuntu 16.04) 
@@ -38,7 +38,6 @@ def validate_network():
             target_net = QNetwork(session)
     rospy.sleep(1.0)
 
-
     # Initialize gazebo environment (./worlds/test_world.world)
     # + real world environment -> get depth data through our edge_depth netowrk
     environ = GazeboEnvironment()
@@ -61,7 +60,7 @@ def validate_network():
         print('  var {:02d}: {:15}   {}'.format(i, str(v.get_shape()), v.name))
     print()
     
-    q_network_saver = tf.train.Saver(q_network_params, max_to_keep=1)
+    q_network_saver = tf.train.Saver(q_network_params, max_to_keep = 1)
 
     checkpoint = tf.train.get_checkpoint_state(K_CHECKPOINT_PATH)
     logger.info('found checkpoint: \n\n' + str(checkpoint))
@@ -74,12 +73,12 @@ def validate_network():
     rate = rospy.Rate(5)
     
     while not rospy.is_shutdown():
-        environ.reset_environment()
+        environ.reset_environment(use_semi_random_position = False)
 
         action_index = 0
         is_collided = False
         depth_data_init = environ.get_depth_observation()
-        depth_data_memory = np.stack((depth_data_init, depth_data_init, depth_data_init, depth_data_init), axis=2)
+        depth_data_memory = np.stack((depth_data_init, depth_data_init, depth_data_init, depth_data_init), axis = 2)
         
         while not is_collided:
             if environ.simulation_params.bump:
@@ -88,7 +87,7 @@ def validate_network():
              
             depth_data_current = environ.get_depth_observation()
             depth_data_current = np.reshape(depth_data_current, (K_DEPTH_IMAGE_HEIGHT, K_DEPTH_IMAGE_WIDTH, 1))
-            depth_data_memory = np.append(depth_data_current, depth_data_memory[:, :, :(K_IMAGE_HIST_SIZE - 1)], axis=2)
+            depth_data_memory = np.append(depth_data_current, depth_data_memory[:, :, :(K_IMAGE_HIST_SIZE - 1)], axis = 2)
 
             # Choose an action greedily
             a = session.run(online_net.readout, feed_dict = {online_net.state : [depth_data_memory]})
