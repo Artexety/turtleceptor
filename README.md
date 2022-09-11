@@ -1,5 +1,5 @@
 # Turtleceptor :turtle:
-POC of our monocular obstacle detection and avoidance system based on Deep Reinforcement Learning. This project was created as an entry for the German BWKI competition using the infamous turtlebot2 ros package. The goal of this project was to develop a system that would allow the turtlebot to move freely without colliding with any obstacles.  
+POC of a monocular obstacle detection and avoidance system based on Deep Reinforcement Learning. This project was created as an entry for the German BWKI competition using the infamous turtlebot2 ros package. The goal of this project was to develop a system that would allow the turtlebot to move freely without colliding with any obstacles.  
 
 
 ## Getting Started
