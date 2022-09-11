@@ -13,7 +13,8 @@ POC of our monocular obstacle detection and avoidance system based on Deep Reinf
 When everything is set up, you can run the commands below to start training. Make sure you `source` your python venv beforehand.
 
 ```console
-$ roslaunch turtlebot_gazebo turtlebot_world.launch world_file:=/path/to/train_world.world
+$ roslaunch turtlebot_gazebo turtlebot_world.launch \ 
+            world_file:=/path/to/train_world.world
 
 $ python3 train.py
 ```
@@ -21,7 +22,8 @@ $ python3 train.py
 ## Testing the Network
 To test the trained network just run the following commands:
 ```console
-$ roslaunch turtlebot_gazebo turtlebot_world.launch world_file:=/path/to/test_world.world
+$ roslaunch turtlebot_gazebo turtlebot_world.launch \
+            world_file:=/path/to/test_world.world
 
 $ python3 validate.py
 ```
