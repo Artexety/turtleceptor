@@ -30,7 +30,7 @@ K_EPS4 = numpy.finfo(float).eps * 4.0
 
 K_ENVIRONMENT_NAME = 'GazeboEnvironment'
 K_LOGGING_PATH = './logs'
-K_CHECKPOINT_PATH = 'ckpts'
+K_CHECKPOINT_PATH = './ckpts'
 
 K_NUM_VALID_ACTIONS = 7
 K_DOF_SPEED = 2

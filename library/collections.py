@@ -27,7 +27,8 @@ class AttributeDict(dict):
             )
 
     def immutable(self, is_immutable):
-        """Set immutability to is_immutable and recursively apply the setting
+        """
+        Set immutability to is_immutable and recursively apply the setting
         to all nested AttributeDicts.
         """
         self.__dict__[AttributeDict.IMMUTABLE] = is_immutable
