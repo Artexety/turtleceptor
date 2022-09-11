@@ -20,7 +20,7 @@ $ python3 train.py
 ```
 
 ## Testing the Network
-To test the trained network just run the following commands:
+After the training is fisnished you can test the trained network just by running the following commands:
 ```console
 $ roslaunch turtlebot_gazebo turtlebot_world.launch \
             world_file:=/path/to/test_world.world
