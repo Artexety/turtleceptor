@@ -1,5 +1,5 @@
-# Turtleceptor
-POC of our monocular obstacle detection and avoidance system based on Deep Reinforcement Learning. This project was created as an entry for the German BWKI competition using the infamous turtlebot2 ros package.
+# Turtleceptor :turtle:
+POC of our monocular obstacle detection and avoidance system based on Deep Reinforcement Learning. This project was created as an entry for the German BWKI competition using the infamous turtlebot2 ros package. The goal of this project was to develop a system that would allow the turtlebot to move freely without colliding with any obstacles.  
 
 
 ## Getting Started
@@ -10,7 +10,7 @@ POC of our monocular obstacle detection and avoidance system based on Deep Reinf
 
 
 ## Training the Network
-When everything is set up, you can run the commands below to start training. Make sure you `source` your python venv beforehand.
+When everything is set up, you can run the commands below to start training. Make sure you `source` your python virtual environment beforehand.
 
 ```console
 $ roslaunch turtlebot_gazebo turtlebot_world.launch \ 
