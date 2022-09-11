@@ -14,7 +14,7 @@ K_SPAWNPOINT_DOWN_LEFT = 0
 K_NEXT_AXIS = [1, 2, 0, 1]
 K_FLOAT_EPS = numpy.finfo(numpy.float64).eps
 
-# map axes strings to/from tuples of inner axis, parity, repetition, frame
+# Map axes strings to/from tuples of inner axis, parity, repetition, frame
 K_AXES2TUPLE = {
     'sxyz': (0, 0, 0, 0), 'sxyx': (0, 0, 1, 0), 'sxzy': (0, 1, 0, 0),
     'sxzx': (0, 1, 1, 0), 'syzx': (1, 0, 0, 0), 'syzy': (1, 0, 1, 0),

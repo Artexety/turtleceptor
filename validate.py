@@ -5,7 +5,7 @@ import sys, os, warnings
 warnings.filterwarnings('ignore', message='numpy.dtype size changed')
 warnings.filterwarnings('ignore', message='numpy.ufunc size changed')
 
-# remove ros python installation from python path to prevent name 
+# Remove ros python installation from python path to prevent name 
 # mismatches (ros-distro: kinetic, ubuntu 16.04) 
 sys.path.append('/opt/ros/kinetic/lib/python2.7/dist-packages')
 import rospy
@@ -39,8 +39,8 @@ def validate_network():
     rospy.sleep(1.0)
 
 
-    # initialize gazebo environment (./worlds/test_world.world)
-    # real world environment -> get depth through our edge_depth netowrk
+    # Initialize gazebo environment (./worlds/test_world.world)
+    # + real world environment -> get depth data through our edge_depth netowrk
     environ = GazeboEnvironment()
     logger.info('gazebo_environment was successfully initialized')
     
@@ -90,7 +90,7 @@ def validate_network():
             depth_data_current = np.reshape(depth_data_current, (K_DEPTH_IMAGE_HEIGHT, K_DEPTH_IMAGE_WIDTH, 1))
             depth_data_memory = np.append(depth_data_current, depth_data_memory[:, :, :(K_IMAGE_HIST_SIZE - 1)], axis=2)
 
-            # choose an action greedily
+            # Choose an action greedily
             a = session.run(online_net.readout, feed_dict = {online_net.state : [depth_data_memory]})
             a_t = np.zeros([K_NUM_VALID_ACTIONS])
             r_t = a[0]

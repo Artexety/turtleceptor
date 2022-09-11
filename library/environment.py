@@ -13,7 +13,7 @@ from sensor_msgs.msg import LaserScan
 from nav_msgs.msg import Odometry
 from kobuki_msgs.msg import BumperEvent
 
-# remove ros python installation from python path to prevent name 
+# Remove ros python installation from python path to prevent name 
 # mismatches (ros-distro: kinetic, ubuntu 16.04) 
 sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 
