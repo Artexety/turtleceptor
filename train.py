@@ -131,11 +131,11 @@ def train_network():
             
             reward_t, terminal, do_reset = environ.calculate_reward(step)
             if step > 0:
-                internal_buffer.append((depth_data_memory, a_t, reward_t, depth_data_memory, terminal))
+                internal_buffer.append((depth_data_memory_temp, a_t, reward_t, depth_data_memory, terminal))
                 if len(internal_buffer) > K_REPLAY_MEMORY_SIZE:
                     internal_buffer.popleft()
 
-            depth_data_memory = depth_data_memory
+            depth_data_memory_temp = depth_data_memory
             a = session.run(online_network.readout, feed_dict = {online_network.state : [depth_data_memory]})
             a_t = np.zeros([K_NUM_VALID_ACTIONS])
             r_t = a[0]
@@ -163,7 +163,7 @@ def train_network():
                 depth_memory_t1_batch = [d[3] for d in minibatch]
                 
                 q0_value = online_network.readout.eval(feed_dict = {online_network.state : depth_memory_t1_batch})
-                q1_valua = online_network.readout.eval(feed_dict = {online_network.state : depth_memory_t1_batch})
+                q1_valua = target_network.readout.eval(feed_dict = {target_network.state : depth_memory_t1_batch})
                 
                 for i in range(0, len(minibatch), 1):
                     terminal_batch = minibatch[i][4]
